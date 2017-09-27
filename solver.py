@@ -26,40 +26,12 @@ def get_inpt(sudoku):
         for x in range(9):
             sudoku[y][x] = "X"
             prnt_grd(sudoku)
-            inpt = input("Enter number or nothing for X - exit for exit: ")
+            inpt = input("Enter number or nothing/space for X: ")
 
             if inpt == "":
                 inpt = " "
 
             sudoku[y][x] = inpt
-
-
-def check_h(sudoku, cp_sudoku):
-    t1 = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
-    x = 0
-    y = 0
-    while y < 9:
-        x = 0
-        while x < 9:
-            if sudoku[y][x] == " ":
-                t1[x] = str(random.randrange(1, 10))
-            else:
-                t1[x] = sudoku[y][x]
-
-            x = x + 1
-
-        if len(set(t1)) != len(t1):
-            y = y - 1
-
-            for a in range(9):
-                for b in range(9):
-                    sudoku[a][b] = cp_sudoku[a][b]
-        else:
-            for z in range(9):
-                sudoku[y][z] = t1[z]
-                cp_sudoku[y][z] = t1[z]
-
-        y = y + 1
 
 
 def better(sudoku, cp_sudoku):
@@ -99,6 +71,7 @@ def better(sudoku, cp_sudoku):
         y = y + 1
     prnt_grd(t1)
 
+
 #two dimensional list
 #sudoku[y][x] coordinates
 sudoku1 = [[" " for x in range(9)] for y in range(9)]
@@ -111,7 +84,4 @@ for y in range(9):
         sudoku_cp[y][x] = sudoku1[y][x]
 
 
-
-
-#check_h(sudoku1, sudoku_cp)
 better(sudoku1, sudoku_cp)
