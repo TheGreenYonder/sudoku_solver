@@ -34,7 +34,7 @@ def get_inpt(sudoku):
             sudoku[y][x] = inpt
 
 
-def check(sudoku, cp_sudoku):
+def check_h(sudoku, cp_sudoku):
     t1 = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     x = 0
     y = 0
@@ -62,6 +62,43 @@ def check(sudoku, cp_sudoku):
         y = y + 1
 
 
+def better(sudoku, cp_sudoku):
+    t1 = []
+    t2 = []
+    for y in range(9):
+        t1.append(sudoku[y])
+
+    for y in range(9):
+        tmp = ["", "", "", "", "", "", "", "", ""]
+        for x in range(9):
+            tmp[x] = sudoku[x][y]
+
+        t1.append(tmp)
+
+    for x in range(len(t1)):
+        t2.append(t1[x])
+
+    x = 0
+    y = 0
+
+    while y < 18:
+        x = 0
+        while x < 9:
+            if t1[y][x] == " ":
+                t1[y][x] = str(random.randrange(1, 10))
+
+            x = x + 1
+
+        if len(set(t1[x])) != len(t1[x]):
+            y = -1
+
+            for a in range(18):
+                for b in range(9):
+                    t1[a][b] = t2[a][b]
+
+        y = y + 1
+    prnt_grd(t1)
+
 #two dimensional list
 #sudoku[y][x] coordinates
 sudoku1 = [[" " for x in range(9)] for y in range(9)]
@@ -73,5 +110,8 @@ for y in range(9):
     for x in range(9):
         sudoku_cp[y][x] = sudoku1[y][x]
 
-check(sudoku1, sudoku_cp)
-prnt_grd(sudoku1)
+
+
+
+#check_h(sudoku1, sudoku_cp)
+better(sudoku1, sudoku_cp)
