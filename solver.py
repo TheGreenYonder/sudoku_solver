@@ -59,12 +59,20 @@ def better(sudoku):
             if t1[y][x] == " ":
                 t1[y][x] = str(random.randrange(1, 10))
 
-    for y in range(18):
-        for x in range(9):
-            if len(set(t1[x])) != 9:
-                return True
-            else:
-                pass
+                #only error when it is finished
+                try:
+                    t1[y+9][x] = t1[y][x]
+                except IndexError:
+                    prnt_grd(t1)
+                    return False
+
+        if len(set(t1[y])) != 9:
+            return True
+
+#    for y in range(18):
+ #       for x in range(9):
+  #          if len(set(t1[x])) != 9:
+   #             return True
 
     prnt_grd(t1)
     return False
@@ -83,16 +91,17 @@ for y in range(9):
 
 
 sudoku1[0][0] = " "
-sudoku1[1][1] = " "
-sudoku1[1][2] = " "
-sudoku1[3][1] = " "
-sudoku1[8][8] = " "
-sudoku1[7][1] = " "
-sudoku1[7][6] = " "
-sudoku1[2][7] = " "
-sudoku1[5][5] = " "
+sudoku1[5][0] = " "
+sudoku1[8][1] = " "
+sudoku1[2][4] = " "
+sudoku1[2][1] = " "
+sudoku1[3][5] = " "
 
+tries = 1
 prnt_grd(sudoku1)
 cp_sudoku = deepcopy(sudoku1)
 while better(sudoku1):
+    tries = tries + 1
     sudoku1 = deepcopy(cp_sudoku)
+
+print(str(tries))
