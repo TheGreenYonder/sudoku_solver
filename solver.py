@@ -1,9 +1,10 @@
-#console based solver
+# console based solver
 import random
-import secrets
-#function to print grid
-def prnt_grd(sudoku):
+from copy import deepcopy
 
+
+# function to print grid
+def prnt_grd(sudoku):
     for y in range(9):
         s = ""
 
@@ -41,12 +42,10 @@ def get_inpt(sudoku):
                 x = x - 2
         y = y + 1
 
-def better(sudoku, cp_sudoku):
-    print("go")
+
+def better(sudoku):
     t1 = []
-    t2 = []
-    for y in range(9):
-        t1.append(sudoku[y])
+    t1 = deepcopy(sudoku)
 
     for y in range(9):
         tmp = ["", "", "", "", "", "", "", "", ""]
@@ -55,48 +54,45 @@ def better(sudoku, cp_sudoku):
 
         t1.append(tmp)
 
-    for x in range(len(t1)):
-        t2.append(t1[x])
-
-    x = 0
-    y = 0
-
-    while y < 18:
-        x = 0
-        while x < 9:
+    for y in range(18):
+        for x in range(9):
             if t1[y][x] == " ":
-                t1[y][x] = str(random.randrange(0, 10))
+                t1[y][x] = str(random.randrange(1, 10))
 
-            x = x + 11
+    for y in range(18):
+        for x in range(9):
+            if len(set(t1[x])) != 9:
+                return True
+            else:
+                pass
 
-        if len(set(t1[x])) != 9:
-            print("if")
-            y = -1
-
-            for a in range(18):
-                for b in range(9):
-                    t1[a][b] = t2[a][b]
-
-        y = y + 1
     prnt_grd(t1)
+    return False
 
-
-#two dimensional list
-#sudoku[y][x] coordinates
+# two dimensional list
+# sudoku[y][x] coordinates
 sudoku1 = [[" " for x in range(9)] for y in range(9)]
-sudoku_cp = [[" " for x in range(9)] for y in range(9)]
 #get_inpt(sudoku1)
 
-
+#fill grid (invalid sudoku, just for testing)
 for y in range(9):
     for x in range(9):
-        sudoku_cp[y][x] = sudoku1[y][x]
+        sudoku1[y][x] = str((x+y+1) % 9)
+        if sudoku1[y][x] == "0":
+            sudoku1[y][x] = "9"
 
-for y in range(9):
-    for x in range(9):
-        sudoku1[y][x] = str((x + y + 1) % 10)
 
+sudoku1[0][0] = " "
+sudoku1[1][1] = " "
+sudoku1[1][2] = " "
+sudoku1[3][1] = " "
+sudoku1[8][8] = " "
+sudoku1[7][1] = " "
+sudoku1[7][6] = " "
+sudoku1[2][7] = " "
 sudoku1[5][5] = " "
+
 prnt_grd(sudoku1)
-print(sudoku1)
-better(sudoku1, sudoku_cp)
+cp_sudoku = deepcopy(sudoku1)
+while better(sudoku1):
+    sudoku1 = deepcopy(cp_sudoku)
