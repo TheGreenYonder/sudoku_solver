@@ -1,6 +1,8 @@
 from solver import Solver
 
 my_solver = Solver()
-my_solver.generate_empty_sudoku()
+horizontal_sudoku = my_solver.generate_empty_sudoku()
 my_solver.get_user_input()
-my_solver.print_grid()
+my_solver.print_grid(horizontal_sudoku)
+vertical_sudoku = my_solver.generate_vertical_sudoku
+my_solver.print_grid(vertical_sudoku)
