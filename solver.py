@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 class Solver():
     def __init__(self):
         self.sudoku_horizontal = []
@@ -72,11 +75,10 @@ class Solver():
 
     def find_possible_numbers(self):
         # generate list of all possible numbers (1-9) for ever single position
-        for list_index in range(81):
-            tmp_list = []
-            for item_index in range(9):
-                tmp_list.append(item_index)
-            self.possible_numbers.append(tmp_list)
 
-        for list_index in range(9):
-            pass
+        tmp_list = []
+        for i in range(9):
+            tmp_list.append((str(i + 1)))
+
+        for row_index in range(81):
+            self.possible_numbers.append(deepcopy(tmp_list))
