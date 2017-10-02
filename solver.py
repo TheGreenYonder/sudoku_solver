@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 
-class Solver():
+class Solver:
     def __init__(self):
         self.sudoku_horizontal = []
         self.sudoku_vertical = []
