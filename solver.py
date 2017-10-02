@@ -88,10 +88,13 @@ class Solver:
             for column_index in range(9):
                 self.possible_numbers[row_index][column_index] = list(
                     set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_horizontal[row_index]))
-
-        for row_index in range(9):
-            for column_index in range(9):
                 self.possible_numbers[row_index][column_index] = list(
                     set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_vertical[row_index]))
 
         return self.possible_numbers
+
+    def rnd_solve(self):
+
+        sudoku = deepcopy(self.sudoku_horizontal)
+
+        return sudoku
