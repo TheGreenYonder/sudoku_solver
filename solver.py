@@ -80,5 +80,18 @@ class Solver:
         for i in range(9):
             tmp_list.append((str(i + 1)))
 
-        for row_index in range(81):
-            self.possible_numbers.append(deepcopy(tmp_list))
+        # 3d list, is it the best idea? who knows
+        for y in range(9):
+            self.possible_numbers.append([deepcopy(tmp_list) for x in range(9)])
+
+        for row_index in range(9):
+            for column_index in range(9):
+                self.possible_numbers[row_index][column_index] = list(
+                    set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_horizontal[row_index]))
+
+        for row_index in range(9):
+            for column_index in range(9):
+                self.possible_numbers[row_index][column_index] = list(
+                    set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_vertical[row_index]))
+
+        return self.possible_numbers
