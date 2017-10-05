@@ -1,5 +1,5 @@
 from copy import deepcopy
-
+from random import randrange
 
 class Solver:
     def __init__(self):
@@ -84,17 +84,22 @@ class Solver:
         for y in range(9):
             self.possible_numbers.append([deepcopy(tmp_list) for x in range(9)])
 
+        # delete duplicates from possible list checking ever position with horizontal and vertical
         for row_index in range(9):
             for column_index in range(9):
                 self.possible_numbers[row_index][column_index] = list(
                     set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_horizontal[row_index]))
                 self.possible_numbers[row_index][column_index] = list(
-                    set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_vertical[row_index]))
+                    set(self.possible_numbers[row_index][column_index]) - set(self.sudoku_vertical[column_index]))
 
         return self.possible_numbers
 
     def rnd_solve(self):
-
         sudoku = deepcopy(self.sudoku_horizontal)
+        for row_index in range(9):
+            for column_index in range(9):
+                if sudoku[row_index][column_index] == " ":
+                    sudoku[row_index][column_index] = self.possible_numbers[row_index][column_index][randrange(0, len(
+                        self.possible_numbers[row_index][column_index]))]
 
         return sudoku
